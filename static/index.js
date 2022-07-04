@@ -1,14 +1,29 @@
-const message = document.querySelector('.message')
-const sendBtn = document.querySelector('.send-btn')
-const postMessage = document.querySelector('.post-message')
+const msgInput = document.querySelector('.msger-input')
+const msgBtn = document.querySelector('.msger-send-btn')
+const postMessage = document.querySelector('.msger-chat')
 
-const socket = io('http://10.60.5.5:9000')
+
+const socket = io('http://192.168.1.95:9000/')
 socket.on('connection')
 
 socket.on('message', data => {
-    postMessage.insertAdjacentHTML('beforeend', `<li>${data}</li>`)
+    postMessage.insertAdjacentHTML('beforeend', `<div class="msg left-msg">
+                                                    <div class="msg-bubble">
+                                                        <div class="msg-text">
+                                                            ${data}
+                                                        </div>
+                                                    </div>
+                                                </div>`)
 })
 
-sendBtn.addEventListener('click', () => {
-    socket.emit('message', message.value)
+msgBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    socket.emit('message', msgInput.value)
+    postMessage.insertAdjacentHTML('beforeend', `<div class="msg right-msg">
+                                                    <div class="msg-bubble">
+                                                        <div class="msg-text">
+                                                            ${msgInput.value}
+                                                        </div>
+                                                    </div>
+                                                </div>`)
 })
