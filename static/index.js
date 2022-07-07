@@ -3,7 +3,7 @@ const msgBtn = document.querySelector('.msger-send-btn')
 const postMessage = document.querySelector('.msger-chat')
 
 
-const socket = io('http://192.168.1.95:9000/')
+const socket = io('http://192.168.245.100:9000/')
 socket.on('connection')
 
 socket.on('message', data => {
